@@ -209,6 +209,4 @@ Passionate about software development, full-stack technologies, and building pra
 
 ## 📄 Project Information
 
-Developed as part of **COMP 4621 – Web Programming**.
-
 Wanderly demonstrates the practical application of frontend and backend development technologies to create an interactive, database-driven travel discovery platform.
