@@ -1,0 +1,89 @@
+<!--
+    Author: Manvi Aggarwal
+    Date: September 25, 2026
+    Description: Destinations page for the Wanderly travel website.
+                 Allows visitors to browse and search travel destinations.
+-->
+<!DOCTYPE html>
+<html lang="en" ng-app="destinationApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Wanderly - Destinations</title>
+
+    <!-- Load the shared Wanderly stylesheet. -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Load AngularJS for the interactive destination feature. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <!-- Load the AngularJS code for this page. -->
+    <script src="destinations.js"></script>
+</head>
+
+<body ng-controller="DestinationController">
+
+    <!-- Main website navigation. -->
+    <nav>
+        <div class="logo">Wanderly</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+
+    <!-- Main destination content. -->
+    <main class="destinations-page">
+
+        <h1>Explore Destinations</h1>
+
+        <p>
+            Find inspiration for your next adventure.
+        </p>
+
+        <!-- Search field connected to the AngularJS search model. -->
+        <input
+            type="text"
+            class="search-box"
+            ng-model="searchText"
+            placeholder="Search destinations">
+
+        <!-- AngularJS creates one card for each destination. -->
+        <div class="card-container">
+
+            <div
+                class="destination-card"
+                ng-repeat="destination in destinations | filter:searchText">
+
+                <!-- Display the image associated with each destination -->
+                <img class="destination-image" ng-src="{{ destination.image }}" alt="{{ destination.name }}">
+                
+                <h2>{{ destination.name }}</h2>
+
+                <p>
+                    <strong>Country:</strong>
+                    {{ destination.country }}
+                </p>
+
+                <p>{{ destination.description }}</p>
+
+                <p>
+                    <strong>Best for:</strong>
+                    {{ destination.bestFor }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Website footer. -->
+    <footer>
+        <p>Wanderly - Discover Your Next Adventure</p>
+    </footer>
+
+</body>
+</html>

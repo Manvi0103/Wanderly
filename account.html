@@ -1,0 +1,199 @@
+<!--
+    Author: Manvi Aggarwal
+    Date: September 25, 2026
+    Description: Account page for the Wanderly travel website.
+                 Allows existing users to log in and new users to create
+                 an account using AngularJS, Node.js and MongoDB.
+-->
+
+<!DOCTYPE html>
+<html lang="en" ng-app="wanderlyApp">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Wanderly - Account</title>
+
+    <!-- Load the shared Wanderly website stylesheet. -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Load AngularJS for the account functionality. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <!-- Load the AngularJS application used for login and registration. -->
+    <script src="app.js"></script>
+</head>
+
+<body ng-controller="LoginController">
+
+    <!-- Main website navigation. -->
+    <nav>
+        <div class="logo">Wanderly</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="account.html">Account</a>
+        </div>
+    </nav>
+
+
+    <!-- Main account section. -->
+    <main class="account-page">
+
+        <div class="account-box">
+
+            <!-- Account page heading. -->
+            <h1>Your Wanderly Account</h1>
+
+            <p class="account-intro">
+                Log in to view your travel profile or create a new account.
+            </p>
+
+
+            <!--
+                Login form.
+                AngularJS calls the login() function when the form is submitted.
+            -->
+            <form ng-submit="login()">
+
+                <!-- Username field. -->
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        ng-model="user.username"
+                        placeholder="Enter your username"
+                        required>
+
+                </div>
+
+
+                <!-- Password field. -->
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        ng-model="user.password"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+
+                <!-- Submit the login information. -->
+                <button
+                    type="submit"
+                    class="login-button">
+                    Login
+                </button>
+
+            </form>
+
+
+            <!--
+                Display the message returned by the Node.js server.
+                Examples include successful login and incorrect password.
+            -->
+            <p class="account-message">
+                {{ message }}
+            </p>
+
+
+            <!--
+                This section appears only when the entered username
+                does not already exist in MongoDB.
+            -->
+            <div
+                ng-if="showRegistration"
+                class="registration-box">
+
+                <p>
+                    This username is not registered yet.
+                </p>
+
+                <!--
+                    Call the AngularJS register() function to create
+                    the new user in MongoDB.
+                -->
+                <button
+                    type="button"
+                    class="register-button"
+                    ng-click="register()">
+                    Create Account
+                </button>
+
+            </div>
+
+
+            <!--
+                Display the user's profile information after
+                a successful login.
+            -->
+            <div
+                ng-if="userDetails"
+                class="profile-box">
+
+                <!--
+                    Existing users may have a full name.
+                    New users may only have a username and password,
+                    so the username is used when fullName is unavailable.
+                -->
+                <h2>
+                    Welcome, {{ userDetails.fullName || userDetails.username }}!
+                </h2>
+
+
+                <!-- Display the username. -->
+                <p>
+                    <strong>Username:</strong>
+                    {{ userDetails.username }}
+                </p>
+
+
+                <!--
+                    Display the email only when the user's MongoDB
+                    document contains an email address.
+                -->
+                <p ng-if="userDetails.email">
+                    <strong>Email:</strong>
+                    {{ userDetails.email }}
+                </p>
+
+
+                <!--
+                    Display the favourite destination only when it
+                    exists in the user's MongoDB document.
+                -->
+                <p ng-if="userDetails.favouriteDestination">
+                    <strong>Favourite Destination:</strong>
+                    {{ userDetails.favouriteDestination }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- Website footer. -->
+    <footer>
+        <p>
+            Wanderly - Discover Your Next Adventure
+        </p>
+    </footer>
+
+</body>
+
+</html>
